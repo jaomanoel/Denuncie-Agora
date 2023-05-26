@@ -19,6 +19,7 @@ public class ReportController {
     private ReportService service;
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<ReportResponseDTO> getAll() {
         return service.getAll();
     }
