@@ -2,10 +2,7 @@ package com.denuncieagora.denuncie.domain.entities;
 
 import com.denuncieagora.denuncie.domain.enums.HateCrimeTypeEnum;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -16,10 +13,18 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString(onlyExplicitlyIncluded = false)
 public class Report {
 
-    @Id @GeneratedValue(strategy = GenerationType.UUID)
+    @Id
+    @EqualsAndHashCode.Include
+    @ToString.Include
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @Column(nullable = false, length = 32)
+    private String identity;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
