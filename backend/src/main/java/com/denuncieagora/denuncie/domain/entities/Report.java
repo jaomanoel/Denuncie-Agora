@@ -23,7 +23,7 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false, length = 32)
+    @Column(nullable = false, length = 36)
     private String identity;
 
     @Column(nullable = false)
