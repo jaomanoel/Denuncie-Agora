@@ -14,6 +14,7 @@ import java.util.UUID;
 public class ReportResponseDTO {
 
     private UUID id;
+    private String identity;
     private HateCrimeTypeEnum about;
     private LocalDate date;
     private String state;
