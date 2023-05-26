@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/reports")
@@ -34,5 +35,11 @@ public class ReportController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@RequestBody @Valid ReportDeleteRequestDTO request){
         service.delete(request);
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    private ReportResponseDTO edit(@RequestBody @Valid ReportRequestDTO request, @RequestParam(name = "id") UUID id){
+        return service.edit(request, id);
     }
 }
