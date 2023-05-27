@@ -1,8 +1,8 @@
 import { FlatList, StyleSheet } from "react-native";
-import { Post } from "../../src/components/Post";
+import { Post } from "@src/components/Post";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
-import { View } from "../../src/components/Themed";
+import { View } from "@src/components/Themed";
 
 export default function TabOneScreen() {
   const [reports, setReports] = useState<ReportProps[]>([]);
