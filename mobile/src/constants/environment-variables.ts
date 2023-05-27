@@ -3,7 +3,7 @@ import packageJson from "../../package.json";
 const { version } = packageJson;
 
 const uri: { [key: string]: string } = {
-  development: "http://localhost:8080",
+  development: "http://192.168.16.139:8080",
   production: "https://",
   test: "https://",
 };
