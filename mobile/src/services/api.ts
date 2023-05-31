@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
-import { NODE_ENV, uri } from "@src/constants/environment-variables";
+import { NODE_ENV, uri } from "@constants/environment-variables";
 
 const axiosiInstance = axios.create({
   baseURL: uri[NODE_ENV],
