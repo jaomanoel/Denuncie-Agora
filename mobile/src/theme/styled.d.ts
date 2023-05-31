@@ -13,7 +13,7 @@ declare module "styled-components/native" {
       tabIconSelected: string;
     };
 
-    space: {
+    spaces: {
       default: number;
       sm: number;
       base: number;
@@ -21,6 +21,17 @@ declare module "styled-components/native" {
       xl: number;
       "2xl": number;
       "3xl": number;
+    };
+
+    fontSizes: {
+      sm: number;
+      base: number;
+      lg: number;
+      xl: number;
+      "2xl": number;
+      "3xl": number;
+      "4xl": number;
+      "5xl": number;
     };
   }
 }
