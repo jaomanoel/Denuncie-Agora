@@ -1,8 +1,10 @@
 import colors from "@constants/colors";
+import { fontSizes } from "@constants/fontSizes";
 import { Space as space } from "@constants/space";
 import {DefaultTheme} from "styled-components/native"
 
 export const lightTheme: DefaultTheme = {
   colors: colors.light,
-  space: space,
+  spaces: space,
+  fontSizes: fontSizes
 };
