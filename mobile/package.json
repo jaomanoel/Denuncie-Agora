@@ -14,6 +14,7 @@
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
     "@react-navigation/native": "^6.0.2",
+    "@tanstack/react-query": "^4.29.12",
     "@types/styled-components": "^5.1.26",
     "axios": "^1.4.0",
     "expo": "~48.0.15",
