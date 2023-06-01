@@ -21,6 +21,9 @@ declare module "styled-components/native" {
       xl: number;
       "2xl": number;
       "3xl": number;
+      "4xl": number;
+      "5xl": number;
+      "6xl": number;
     };
 
     fontSizes: {
