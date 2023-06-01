@@ -8,12 +8,14 @@ import { useDenuncias } from "./useDenuncias";
 import LottieView from "lottie-react-native";
 
 import * as S from "./styles";
+import { isDarkMode } from "utils/isDarkMode";
 
 const Denuncias: React.FC = () => {
-  const { data, isDarkMode, isLoading } = useDenuncias();
+  const { data, isLoading } = useDenuncias();
+  const darkMode = isDarkMode();
 
   return (
-    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       {isLoading ? (
         <S.container>
           <LottieView
