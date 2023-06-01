@@ -6,11 +6,11 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum HateCrimeTypeEnum {
-    RACISM (1),
-    XENOPHOBIA (2),
-    HOMOPHOBIA (3),
-    RAPE (4),
-    KIDNAPPING (5);
+    RACISMO (1),
+    XENOFOBIA (2),
+    HOMOFOBIA (3),
+    ABUSO (4),
+    SEQUESTRO (5);
 
     private Integer id;
 }
