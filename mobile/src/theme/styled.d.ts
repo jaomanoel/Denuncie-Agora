@@ -28,6 +28,7 @@ declare module "styled-components/native" {
 
     fontSizes: {
       sm: number;
+      md: number;
       base: number;
       lg: number;
       xl: number;
