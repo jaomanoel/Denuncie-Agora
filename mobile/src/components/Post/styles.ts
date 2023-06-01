@@ -39,7 +39,7 @@ export const text = styled.Text`
 export const description = styled.Text`
   font-size: ${({ theme }) => theme.fontSizes.xl}px;
   color: ${({ theme }) => theme.colors.onBackground};
-  padding: ${(props) => props.theme.spaces.default}px;
+  padding: ${(props) => props.theme.spaces.base}px;
   width: 100%;
   text-align: left;
 `;
