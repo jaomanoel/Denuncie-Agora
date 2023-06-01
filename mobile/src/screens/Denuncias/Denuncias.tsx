@@ -1,11 +1,11 @@
 import React from "react";
 import { Post } from "@components/Post";
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
 import { darkTheme } from "theme/darkTheme";
 import { lightTheme } from "theme/lightTheme";
 import { ThemeProvider } from "styled-components/native";
 import { useDenuncias } from "./useDenuncias";
-import { Text } from "react-native";
+import LottieView from "lottie-react-native";
 
 import * as S from "./styles";
 
@@ -15,7 +15,14 @@ const Denuncias: React.FC = () => {
   return (
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
       {isLoading ? (
-        <Text>Loading...</Text>
+        <S.container>
+          <LottieView
+            source={require("@assets/animations/animate-loading.json")}
+            autoPlay
+            loop
+            style={{ width: 80, height: 80 }}
+          />
+        </S.container>
       ) : (
         <S.container>
           <FlatList
