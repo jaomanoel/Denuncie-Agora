@@ -5,5 +5,8 @@ export const Space = {
   lg: 18,
   xl: 20,
   "2xl": 24,
-  "3xl": 28,
+  "3xl": 26,
+  "4xl": 28,
+  "5xl": 32,
+  "6xl": 36,
 };
