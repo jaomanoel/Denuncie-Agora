@@ -1,0 +1,1 @@
+interface PostProps extends ReportProps {}
