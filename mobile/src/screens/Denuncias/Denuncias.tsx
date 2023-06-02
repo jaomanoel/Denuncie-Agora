@@ -1,6 +1,6 @@
 import React from "react";
 import { Post } from "@components/Post";
-import { FlatList, View } from "react-native";
+import { FlatList } from "react-native";
 import { darkTheme } from "theme/darkTheme";
 import { lightTheme } from "theme/lightTheme";
 import { ThemeProvider } from "styled-components/native";
@@ -9,9 +9,10 @@ import LottieView from "lottie-react-native";
 
 import * as S from "./styles";
 import { isDarkMode } from "utils/isDarkMode";
+import { Loading } from "@components/Loading";
 
 const Denuncias: React.FC = () => {
-  const { data, isLoading } = useDenuncias();
+  const { data, isLoading, refetch } = useDenuncias();
   const darkMode = isDarkMode();
 
   return (
@@ -32,6 +33,8 @@ const Denuncias: React.FC = () => {
             keyExtractor={(item: ReportProps) => item.id}
             data={data}
             horizontal={false}
+            refreshing={isLoading}
+            onRefresh={() => refetch()}
             renderItem={({ item }) => (
               <Post
                 date={item.date}
