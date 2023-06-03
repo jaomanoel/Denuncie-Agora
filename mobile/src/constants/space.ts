@@ -1,6 +1,7 @@
 export const Space = {
   sm: 4,
   default: 8,
+  md: 14,
   base: 16,
   lg: 18,
   xl: 20,
