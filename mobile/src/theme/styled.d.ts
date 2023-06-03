@@ -16,6 +16,7 @@ declare module "styled-components/native" {
     spaces: {
       default: number;
       sm: number;
+      md: number;
       base: number;
       lg: number;
       xl: number;
