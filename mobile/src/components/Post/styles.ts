@@ -8,6 +8,7 @@ export const container = styled.View`
   width: 100%;
   height: 100%;
   padding-top: 20px;
+  margin-bottom: 20px;
 `;
 
 export const containerTitle = styled.View`
@@ -53,4 +54,3 @@ export const line = styled.View`
 export const button = styled.TouchableOpacity`
   padding: ${(props) => props.theme.spaces.default}px;
 `;
-
