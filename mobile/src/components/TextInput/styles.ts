@@ -27,8 +27,10 @@ export const description = styled.TextInput`
   border-radius: 10px;
   background-color: #ebebeb;
   height: 140px;
+  display: flex;
+  align-items: center;
   width: 100%;
-  padding-left: ${({ theme }) => theme.spaces.md}px;
+  padding: ${({ theme }) => theme.spaces.md}px;
   color: black;
 `;
 

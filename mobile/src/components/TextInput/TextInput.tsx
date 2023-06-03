@@ -17,6 +17,7 @@ const TextInput: React.FC<TextInputProps> = ({
       <S.label>{label}</S.label>
       {isDescription ? (
         <S.description
+          multiline
           onChangeText={onChangeText}
           onBlur={onBlur}
           value={value}
