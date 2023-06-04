@@ -10,11 +10,13 @@ const SelectInput: React.FC<SelectInputProps> = ({
   onSelect,
   errorMessage,
   isIndex,
+  defaultValue
 }) => {
   return (
     <S.container>
       <S.label>{label}</S.label>
       <SelectDropdown
+        defaultButtonText={defaultValue}
         buttonStyle={{ width: "100%", height: 48, borderRadius: 10 }}
         data={data}
         onSelect={(selectedItem, index) => {

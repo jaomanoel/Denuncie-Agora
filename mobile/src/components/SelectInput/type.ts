@@ -4,4 +4,5 @@ export interface SelectInputProps {
   data: string[];
   errorMessage?: string;
   isIndex: boolean;
+  defaultValue: string;
 }
