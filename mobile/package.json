@@ -41,7 +41,8 @@
     "react-native-select-dropdown": "^3.3.3",
     "react-native-svg": "13.4.0",
     "react-native-web": "~0.18.10",
-    "styled-components": "^5.3.11"
+    "styled-components": "^5.3.11",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
