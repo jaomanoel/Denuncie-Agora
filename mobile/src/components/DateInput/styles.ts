@@ -16,7 +16,7 @@ export const dateContainer = styled.View`
 `;
 
 export const dateLabel = styled.Text`
-  color: ${({ theme }) => theme.colors.text};
+  color: black;
   font-size: ${({ theme }) => theme.fontSizes.lg}px;
 `;
 
