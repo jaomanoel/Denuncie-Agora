@@ -10,7 +10,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
   onSelect,
   errorMessage,
   isIndex,
-  defaultValue
+  defaultValue,
 }) => {
   return (
     <S.container>
