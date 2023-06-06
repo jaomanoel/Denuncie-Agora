@@ -31,6 +31,10 @@ public class ReportService {
                 .toList();
     }
 
+    public ReportResponseDTO getById(UUID uuid){
+        return mapper.toResponse(repository.findById(uuid).get());
+    }
+
     public ReportResponseDTO create(ReportRequestDTO request){
         Report model = mapper.toModel(request);
         repository.save(model);
