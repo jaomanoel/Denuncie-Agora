@@ -42,4 +42,10 @@ public class ReportController {
     private ReportResponseDTO edit(@RequestBody @Valid ReportRequestDTO request, @RequestParam(name = "id") UUID id){
         return service.edit(request, id);
     }
+
+    @GetMapping("/")
+    @ResponseStatus(HttpStatus.OK)
+    public ReportResponseDTO getById(@RequestParam UUID id){
+        return service.getById(id);
+    }
 }
