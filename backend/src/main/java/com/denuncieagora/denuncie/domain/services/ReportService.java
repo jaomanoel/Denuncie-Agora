@@ -8,6 +8,8 @@ import com.denuncieagora.denuncie.dtos.requests.ReportRequestDTO;
 import com.denuncieagora.denuncie.dtos.responses.ReportResponseDTO;
 import com.denuncieagora.denuncie.mappers.ReportMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,11 +26,20 @@ public class ReportService {
     @Autowired
     private ReportMapper mapper;
 
-    public List<ReportResponseDTO> getAll(){
-        return repository.findAll()
-                .stream()
-                .map((model) -> mapper.toResponse(model))
+    public List<ReportResponseDTO> getAll(HateCrimeTypeEnum hateCrime){
+        List<ReportResponseDTO> response = repository
+                .findAll(PageRequest.of(0, 5, Sort.by("date").descending()))
+                .stream().map((model) -> mapper.toResponse(model))
                 .toList();
+
+        if(hateCrime != null){
+            response = repository
+                    .findByAbout(hateCrime, PageRequest.of(0, 5, Sort.by("date").descending()))
+                    .stream().map((model) -> mapper.toResponse(model))
+                    .toList();
+        }
+
+        return response;
     }
 
     public ReportResponseDTO getById(UUID uuid){
