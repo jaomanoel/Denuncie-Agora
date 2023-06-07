@@ -1,8 +1,13 @@
 import api from "@services/api";
-import { useCallback } from "react";
 
-export const getReports = async () => {
-  const response = await api.get<ReportProps[]>("/reports");
+export interface GetReportsProps {
+  hateCrime?: string;
+}
+
+export const getReports = async (hateCrime?: string) => {
+  const response = await api.get<ReportProps[]>(
+    `/reports?hatecrime=${hateCrime}`
+  );
 
   return response.data;
 };
