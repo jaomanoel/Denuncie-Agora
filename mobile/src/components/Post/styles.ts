@@ -1,12 +1,10 @@
 import styled from "styled-components/native";
 
 export const container = styled.View`
-  flex: 1;
   flex-direction: column;
   gap: 8px;
   background-color: ${({ theme }) => theme.colors.background};
   width: 100%;
-  height: 100%;
   padding-top: 20px;
   margin-bottom: 20px;
 `;
