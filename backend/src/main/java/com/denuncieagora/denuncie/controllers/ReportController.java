@@ -1,5 +1,6 @@
 package com.denuncieagora.denuncie.controllers;
 
+import com.denuncieagora.denuncie.domain.enums.HateCrimeTypeEnum;
 import com.denuncieagora.denuncie.domain.services.ReportService;
 import com.denuncieagora.denuncie.dtos.requests.ReportDeleteRequestDTO;
 import com.denuncieagora.denuncie.dtos.requests.ReportRequestDTO;
@@ -21,8 +22,8 @@ public class ReportController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ReportResponseDTO> getAll() {
-        return service.getAll();
+    public List<ReportResponseDTO> getAll(@RequestParam(name = "hatecrime", required = false, defaultValue = "") HateCrimeTypeEnum hateCrime) {
+        return service.getAll(hateCrime);
     }
 
     @PostMapping
