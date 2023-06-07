@@ -9,8 +9,10 @@ public enum HateCrimeTypeEnum {
     RACISMO (1),
     XENOFOBIA (2),
     HOMOFOBIA (3),
-    ABUSO (4),
-    SEQUESTRO (5);
+    TRANSFOBIA (4),
+    INSLAMOFOBIA (5),
+    ANTISEMITA (6),
+    IDADISMO (7);
 
     private Integer id;
 }
