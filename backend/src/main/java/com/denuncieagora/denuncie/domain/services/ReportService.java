@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @Service
 public class ReportService {
@@ -29,13 +30,13 @@ public class ReportService {
     public List<ReportResponseDTO> getAll(HateCrimeTypeEnum hateCrime){
         List<ReportResponseDTO> response = repository
                 .findAll(PageRequest.of(0, 5, Sort.by("date").descending()))
-                .stream().map((model) -> mapper.toResponse(model))
+                .stream().map(this::toResponse)
                 .toList();
 
         if(hateCrime != null){
             response = repository
                     .findByAbout(hateCrime, PageRequest.of(0, 5, Sort.by("date").descending()))
-                    .stream().map((model) -> mapper.toResponse(model))
+                    .stream().map(this::toResponse)
                     .toList();
         }
 
@@ -47,10 +48,18 @@ public class ReportService {
     }
 
     public ReportResponseDTO create(ReportRequestDTO request){
-        Report model = mapper.toModel(request);
-        repository.save(model);
+        Report report = new Report();
+        report.setAbout(toHateCrimeTypeEnum(request.getAbout()));
+        report.setIdentity(request.getIdentity());
+        report.setState(request.getState());
+        report.setDescription(request.getDescription());
+        report.setCity(request.getCity());
+        report.setDate(request.getDate());
 
-        return mapper.toResponse(model);
+
+        repository.save(report);
+
+        return toResponse(report);
     }
 
     @Transactional
@@ -81,7 +90,27 @@ public class ReportService {
 
         repository.save(model);
 
-        return mapper.toResponse(model);
+        return toResponse(model);
+    }
+
+    private HateCrimeTypeEnum toHateCrimeTypeEnum(Integer value) {
+        return Stream.of(HateCrimeTypeEnum.values())
+                .filter(type -> type.getId().equals(value))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("About is invalid!"));
+    }
+
+    private ReportResponseDTO toResponse(Report report) {
+        ReportResponseDTO response = new ReportResponseDTO();
+        response.setId(report.getId());
+        response.setAbout(report.getAbout());
+        response.setCity(report.getCity());
+        response.setState(report.getState());
+        response.setIdentity(report.getIdentity());
+        response.setDate(report.getDate());
+        response.setDescription(report.getDescription());
+
+        return response;
     }
 
 }
