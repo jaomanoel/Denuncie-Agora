@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 @Mapper(componentModel = "spring")
 public interface ReportMapper {
 
-    ReportMapper INSTANCE = Mappers.getMapper(ReportMapper.class);
+    ReportMapper MAPPER = Mappers.getMapper(ReportMapper.class);
 
     ReportResponseDTO toResponse(Report model);
 
