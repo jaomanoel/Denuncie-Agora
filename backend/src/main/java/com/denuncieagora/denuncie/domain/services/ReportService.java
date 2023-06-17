@@ -47,7 +47,16 @@ public class ReportService {
         Report report = repository.findById(uuid)
                 .orElseThrow(() -> new IllegalArgumentException("id is invalid!"));
 
-        return mapper.toResponse(report);
+        ReportResponseDTO response = new ReportResponseDTO();
+        response.setIdentity(report.getIdentity());
+        response.setDate(report.getDate());
+        response.setDescription(report.getDescription());
+        response.setCity(report.getCity());
+        response.setAbout(report.getAbout());
+        response.setState(report.getState());
+        response.setId(report.getId());
+
+        return response;
     }
 
     public ReportResponseDTO create(ReportRequestDTO request){
