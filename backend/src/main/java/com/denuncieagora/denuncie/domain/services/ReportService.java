@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -50,6 +51,18 @@ public class ReportService {
 
     public ReportResponseDTO create(ReportRequestDTO request){
         Report report = toModel(request);
+
+        if(report.getDate().isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("Date is invalid!");
+        }
+
+        if(report.getIdentity().equals("")) {
+            throw new IllegalArgumentException("Report is invalid!");
+        }
+
+        if(report.getDescription().length() <= 200) {
+            throw new IllegalArgumentException("Description is invalid!");
+        }
 
         repository.save(report);
 
