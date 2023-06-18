@@ -3,7 +3,6 @@ package com.denuncieagora.denuncie.domain.services;
 import com.denuncieagora.denuncie.domain.entities.Report;
 import com.denuncieagora.denuncie.domain.enums.HateCrimeTypeEnum;
 import com.denuncieagora.denuncie.domain.repositories.ReportRepository;
-import com.denuncieagora.denuncie.dtos.requests.ReportDeleteRequestDTO;
 import com.denuncieagora.denuncie.dtos.requests.ReportRequestDTO;
 import com.denuncieagora.denuncie.dtos.responses.ReportResponseDTO;
 import com.denuncieagora.denuncie.mappers.ReportMapper;
@@ -13,7 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -47,27 +45,11 @@ public class ReportService {
         Report report = repository.findById(uuid)
                 .orElseThrow(() -> new IllegalArgumentException("id is invalid!"));
 
-        ReportResponseDTO response = new ReportResponseDTO();
-        response.setIdentity(report.getIdentity());
-        response.setDate(report.getDate());
-        response.setDescription(report.getDescription());
-        response.setCity(report.getCity());
-        response.setAbout(report.getAbout());
-        response.setState(report.getState());
-        response.setId(report.getId());
-
-        return response;
+        return toResponse(report);
     }
 
     public ReportResponseDTO create(ReportRequestDTO request){
-        Report report = new Report();
-        report.setAbout(toHateCrimeTypeEnum(request.getAbout()));
-        report.setIdentity(request.getIdentity());
-        report.setState(request.getState());
-        report.setDescription(request.getDescription());
-        report.setCity(request.getCity());
-        report.setDate(request.getDate());
-
+        Report report = toModel(request);
 
         repository.save(report);
 
@@ -91,10 +73,7 @@ public class ReportService {
 
         if(!model.getIdentity().equals(request.getIdentity())) throw new IllegalArgumentException("identity is invalid");
 
-        model.setAbout(Arrays.stream(HateCrimeTypeEnum.values())
-                .filter(type -> type.getId().equals(request.getAbout()))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("About is invalid")));
+        model.setAbout(toHateCrimeTypeEnum(request.getAbout()));
         model.setState(request.getState());
         model.setCity(request.getCity());
         model.setDate(request.getDate());
@@ -110,6 +89,18 @@ public class ReportService {
                 .filter(type -> type.getId().equals(value))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("About is invalid!"));
+    }
+
+    private Report toModel(ReportRequestDTO requestDTO) {
+        Report report = new Report();
+        report.setAbout(toHateCrimeTypeEnum(requestDTO.getAbout()));
+        report.setIdentity(requestDTO.getIdentity());
+        report.setState(requestDTO.getState());
+        report.setCity(requestDTO.getCity());
+        report.setDate(requestDTO.getDate());
+        report.setDescription(requestDTO.getDescription());
+
+        return report;
     }
 
     private ReportResponseDTO toResponse(Report report) {
