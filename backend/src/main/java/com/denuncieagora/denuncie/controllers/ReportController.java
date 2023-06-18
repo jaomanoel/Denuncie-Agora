@@ -34,8 +34,8 @@ public class ReportController {
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@RequestBody @Valid ReportDeleteRequestDTO request){
-        service.delete(request);
+    public void delete(@RequestParam(name = "id") UUID id, @RequestParam(name = "identity") String identity){
+        service.delete(id, identity);
     }
 
     @PutMapping
