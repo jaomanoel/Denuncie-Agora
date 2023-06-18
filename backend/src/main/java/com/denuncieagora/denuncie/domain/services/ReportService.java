@@ -71,10 +71,14 @@ public class ReportService {
 
     @Transactional
     public void delete(UUID id, String identity){
+        if(identity.equals("")) {
+            throw new IllegalArgumentException("Identity is required!");
+        }
+
         Report model = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("id is invalid"));
 
-        if(!model.getIdentity().equals(identity)) throw new IllegalArgumentException("identity is invalid");
+        if(!model.getIdentity().equals(identity)) throw new IllegalArgumentException("Identity is invalid!");
 
         repository.delete(model);
     }
