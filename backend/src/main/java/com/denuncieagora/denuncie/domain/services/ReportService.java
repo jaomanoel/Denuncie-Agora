@@ -75,11 +75,11 @@ public class ReportService {
     }
 
     @Transactional
-    public void delete(ReportDeleteRequestDTO request){
-        Report model = repository.findById(request.getId())
+    public void delete(UUID id, String identity){
+        Report model = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("id is invalid"));
 
-        if(!model.getIdentity().equals(request.getIdentity())) throw new IllegalArgumentException("identity is invalid");
+        if(!model.getIdentity().equals(identity)) throw new IllegalArgumentException("identity is invalid");
 
         repository.delete(model);
     }
