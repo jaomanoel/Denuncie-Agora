@@ -24,6 +24,9 @@ public class ReportService {
     private ReportRepository repository;
 
     @Autowired
+    private ValidateReportData validate;
+
+    @Autowired
     private ReportMapper mapper;
 
     public List<ReportResponseDTO> getAll(HateCrimeTypeEnum hateCrime){
@@ -85,10 +88,17 @@ public class ReportService {
 
     @Transactional
     public ReportResponseDTO edit(ReportRequestDTO request, UUID id){
+        validate.validateId(id);
+
         Report model = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Report not found!"));
 
-        if(!model.getIdentity().equals(request.getIdentity())) throw new IllegalArgumentException("identity is invalid");
+        if(!model.getIdentity().equals(request.getIdentity())) throw new IllegalArgumentException("Identity is invalid");
+
+        validate.validateDate(request.getDate());
+        validate.validateDescription(request.getDescription());
+        validate.validateState(request.getState());
+        validate.validateCity(request.getCity());
 
         model.setAbout(toHateCrimeTypeEnum(request.getAbout()));
         model.setState(request.getState());
