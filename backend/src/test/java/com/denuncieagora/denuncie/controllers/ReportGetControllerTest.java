@@ -2,8 +2,11 @@ package com.denuncieagora.denuncie.controllers;
 
 import com.denuncieagora.denuncie.ApplicationConfigTest;
 import com.denuncieagora.denuncie.domain.enums.HateCrimeTypeEnum;
+import com.denuncieagora.denuncie.domain.exceptions.ReportNotFoundException;
 import com.denuncieagora.denuncie.domain.services.ReportService;
 import com.denuncieagora.denuncie.dtos.responses.ReportResponseDTO;
+import jakarta.servlet.ServletException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -56,7 +59,7 @@ public class ReportGetControllerTest extends ApplicationConfigTest {
 
         Mockito.when(service.getById(uuid)).thenReturn(response);
 
-        mockMvc.perform(get("/reports/").param("id", uuid.toString()))
+        mockMvc.perform(get("/reports/{id}", uuid.toString()))
                 .andExpect(status().isOk());
     }
 
@@ -64,9 +67,15 @@ public class ReportGetControllerTest extends ApplicationConfigTest {
     public void report_get_by_id_failure() throws Exception {
         UUID uuid = UUID.randomUUID();
 
-        Mockito.when(service.getById(uuid)).thenThrow(new IllegalArgumentException("id is invalid!"));
+        Mockito.when(service.getById(uuid)).thenThrow(new ReportNotFoundException("id = " + uuid + " not found!"));
 
-        mockMvc.perform(get("/reports/").param("id", uuid.toString()))
-                .andExpect(status().isBadRequest());
+        Exception exception = Assertions.assertThrows(ServletException.class, () -> {
+            mockMvc.perform(get("/reports/{id}", uuid.toString()))
+                    .andExpect(status().isNotFound());
+        });
+
+        Throwable rootCause = exception.getCause();
+        Assertions.assertTrue(rootCause instanceof ReportNotFoundException);
+        Assertions.assertEquals("id = " + uuid + " not found!", rootCause.getMessage());
     }
 }
