@@ -1,7 +1,10 @@
 package com.denuncieagora.denuncie.controllers;
 
 import com.denuncieagora.denuncie.ApplicationConfigTest;
+import com.denuncieagora.denuncie.domain.exceptions.IdentityInvalidException;
 import com.denuncieagora.denuncie.domain.services.ReportService;
+import jakarta.servlet.ServletException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -12,10 +15,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.UUID;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.UUID;
 
 public class ReportDeleteControllerTest extends ApplicationConfigTest {
 
@@ -50,12 +53,20 @@ public class ReportDeleteControllerTest extends ApplicationConfigTest {
     public void delete_report_failure() throws Exception {
         UUID uuid = UUID.randomUUID();
 
-        Mockito.doThrow(new IllegalArgumentException("Identity is required!")).when(service).delete(uuid, "");
+        Mockito.doThrow(new IdentityInvalidException("Identity is invalid!")).when(service).delete(uuid, "");
 
-        mockMvc.perform(delete("/reports")
-                .param("id", uuid.toString())
-                .param("identity", "")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+        Exception exception = Assertions.assertThrows(ServletException.class, () -> {
+            mockMvc.perform(delete("/reports")
+                    .param("id", uuid.toString())
+                    .param("identity", "")
+                    .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
+        });
+
+        Throwable rootCause = exception.getCause();
+
+        Assertions.assertNotNull(rootCause);
+        Assertions.assertTrue(rootCause instanceof IdentityInvalidException);
+        Assertions.assertEquals(rootCause.getMessage(), "Identity is invalid!");
     }
 }
