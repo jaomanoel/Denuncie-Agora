@@ -1,10 +1,13 @@
 package com.denuncieagora.denuncie.controllers;
 
 import com.denuncieagora.denuncie.ApplicationConfigTest;
+import com.denuncieagora.denuncie.domain.exceptions.*;
 import com.denuncieagora.denuncie.domain.services.ReportService;
 import com.denuncieagora.denuncie.dtos.requests.ReportRequestDTO;
 import com.denuncieagora.denuncie.dtos.responses.ReportResponseDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.ServletException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -71,13 +74,22 @@ public class ReportEditControllerTest extends ApplicationConfigTest {
 
         String requestBody = objectMapper.writeValueAsString(requestDTO);
 
-        Mockito.when(service.edit(requestDTO, uuid)).thenThrow(new IllegalArgumentException("Id is invalid"));
+        Mockito.when(service.edit(requestDTO, uuid)).thenThrow(new ReportNotFoundException("Id is invalid!"));
 
-        mockMvc.perform(put("/reports")
-                .param("id", uuid.toString())
-                .content(requestBody)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+        Exception exception = Assertions.assertThrows(ServletException.class, () -> {
+            mockMvc.perform(put("/reports")
+                    .param("id", uuid.toString())
+                    .content(requestBody)
+                    .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
+        });
+
+        Assertions.assertNotNull(exception);
+
+        Throwable rootCause = exception.getCause();
+
+        Assertions.assertTrue(rootCause instanceof ReportNotFoundException);
+        Assertions.assertEquals(rootCause.getMessage(), "Id is invalid!");
     }
 
     @Test
@@ -94,13 +106,22 @@ public class ReportEditControllerTest extends ApplicationConfigTest {
 
         String requestBody = objectMapper.writeValueAsString(requestDTO);
 
-        Mockito.when(service.edit(requestDTO, uuid)).thenThrow(new IllegalArgumentException("Identity is invalid"));
+        Mockito.when(service.edit(requestDTO, uuid)).thenThrow(new IdentityInvalidException("Identity is invalid!"));
 
-        mockMvc.perform(put("/reports")
-                .param("id", uuid.toString())
-                .content(requestBody)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+        Exception exception = Assertions.assertThrows(ServletException.class, () -> {
+            mockMvc.perform(put("/reports")
+                    .param("id", uuid.toString())
+                    .content(requestBody)
+                    .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
+        });
+
+        Assertions.assertNotNull(exception);
+
+        Throwable rootCause = exception.getCause();
+
+        Assertions.assertTrue(rootCause instanceof IdentityInvalidException);
+        Assertions.assertEquals(rootCause.getMessage(), "Identity is invalid!");
     }
 
     @Test
@@ -117,13 +138,22 @@ public class ReportEditControllerTest extends ApplicationConfigTest {
 
         String requestBody = objectMapper.writeValueAsString(requestDTO);
 
-        Mockito.when(service.edit(requestDTO, uuid)).thenThrow(new IllegalArgumentException("Date is invalid!"));
+        Mockito.when(service.edit(requestDTO, uuid)).thenThrow(new DateInvalidException("The date is invalid, the date cannot be greater than the current date."));
 
-        mockMvc.perform(put("/reports")
-                .param("id", uuid.toString())
-                .content(requestBody)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+        Exception exception = Assertions.assertThrows(ServletException.class, () -> {
+            mockMvc.perform(put("/reports")
+                    .param("id", uuid.toString())
+                    .content(requestBody)
+                    .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
+        });
+
+        Assertions.assertNotNull(exception);
+
+        Throwable rootCause = exception.getCause();
+
+        Assertions.assertTrue(rootCause instanceof DateInvalidException);
+        Assertions.assertEquals(rootCause.getMessage(), "The date is invalid, the date cannot be greater than the current date.");
     }
 
     @Test
@@ -140,13 +170,22 @@ public class ReportEditControllerTest extends ApplicationConfigTest {
 
         String requestBody = objectMapper.writeValueAsString(requestDTO);
 
-        Mockito.when(service.edit(requestDTO, uuid)).thenThrow(new IllegalArgumentException("State is required!"));
+        Mockito.when(service.edit(requestDTO, uuid)).thenThrow(new StateInvalidException("State is invalid."));
 
-        mockMvc.perform(put("/reports")
-                .param("id", uuid.toString())
-                .content(requestBody)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+        Exception exception = Assertions.assertThrows(ServletException.class, () -> {
+            mockMvc.perform(put("/reports")
+                    .param("id", uuid.toString())
+                    .content(requestBody)
+                    .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
+        });
+
+        Assertions.assertNotNull(exception);
+
+        Throwable rootCause = exception.getCause();
+
+        Assertions.assertTrue(rootCause instanceof StateInvalidException);
+        Assertions.assertEquals(rootCause.getMessage(), "State is invalid.");
     }
 
     @Test
@@ -163,13 +202,22 @@ public class ReportEditControllerTest extends ApplicationConfigTest {
 
         String requestBody = objectMapper.writeValueAsString(requestDTO);
 
-        Mockito.when(service.edit(requestDTO, uuid)).thenThrow(new IllegalArgumentException("City is required!"));
+        Mockito.when(service.edit(requestDTO, uuid)).thenThrow(new CityInvalidException("City is invalid."));
 
-        mockMvc.perform(put("/reports")
-                .param("id", uuid.toString())
-                .content(requestBody)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+        Exception exception = Assertions.assertThrows(ServletException.class, () -> {
+            mockMvc.perform(put("/reports")
+                    .param("id", uuid.toString())
+                    .content(requestBody)
+                    .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
+        });
+
+        Assertions.assertNotNull(exception);
+
+        Throwable rootCause = exception.getCause();
+
+        Assertions.assertTrue(rootCause instanceof CityInvalidException);
+        Assertions.assertEquals(rootCause.getMessage(), "City is invalid.");
     }
 
     @Test
@@ -186,12 +234,21 @@ public class ReportEditControllerTest extends ApplicationConfigTest {
 
         String requestBody = objectMapper.writeValueAsString(requestDTO);
 
-        Mockito.when(service.edit(requestDTO, uuid)).thenThrow(new IllegalArgumentException("Description is required!"));
+        Mockito.when(service.edit(requestDTO, uuid)).thenThrow(new DescriptionInvalidException("The description is short, the minimum is 200 characters."));
 
-        mockMvc.perform(put("/reports")
-                .param("id", uuid.toString())
-                .content(requestBody)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+        Exception exception = Assertions.assertThrows(ServletException.class, () -> {
+            mockMvc.perform(put("/reports")
+                    .param("id", uuid.toString())
+                    .content(requestBody)
+                    .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
+        });
+
+        Assertions.assertNotNull(exception);
+
+        Throwable rootCause = exception.getCause();
+
+        Assertions.assertTrue(rootCause instanceof DescriptionInvalidException);
+        Assertions.assertEquals(rootCause.getMessage(), "The description is short, the minimum is 200 characters.");
     }
 }
