@@ -1,7 +1,0 @@
-export enum HateCrimes {
-  RACISMO = "RACISMO",
-  XENOFOBIA = "XENOFOBIA",
-  HOMOFOBIA = "HOMOFOBIA",
-  ABUSO = "ABUSO",
-  SEQUESTRO = "SEQUESTRO",
-}
