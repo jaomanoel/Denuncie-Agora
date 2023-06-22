@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">DenuncieAgora</string>
+
+    <!-- Page Home -->
+    <string name="button_home">Entrar</string>
+    <string name="developer">Desenvolvido por João Manoel</string>
+
+    <!-- Page Reports -->
+    <string name="title_page_reports">Denuncias</string>
+
+    <!-- Page Report -->
+    <string name="title_page_new_report">Denuncie</string>
+
+    <string name="label_about_report">Denúncia sobre:</string>
+    <string name="error_about_is_required">Sobre é necessário.</string>
+
+    <string name="label_date_report">Data do ocorrido:</string>
+    <string name="placeholder_date_report">Selecionar data do ocorrido</string>
+    <string name="error_date_is_required">Data é necessário.</string>
+
+    <string name="label_state_report">Estado onde ocorreu:</string>
+    <string name="placeholder_state_report">Estado</string>
+    <string name="error_state_is_required">Estado é necessário.</string>
+
+    <string name="label_city_report">Cidade onde ocorreu:</string>
+    <string name="placeholder_city_report">Cidade</string>
+    <string name="error_city_is_required">Cidade é necessária.</string>
+
+    <string name="label_description_report">Descrição do ocorrido:</string>
+    <string name="placeholder_description_report">Descrição</string>
+    <string name="error_description_is_required">Descrição é necessária.</string>
+    <string name="error_description_short">Por favor, forneça mais informações sobre o caso.</string>
+
+    <string name="button_new_report">Realizar denuncia</string>
+
+    <!-- Social Media -->
+
+    <!-- Accessibility -->
+    <string name="accessibility_modal">Abra o modal com opções de compartilhamento e opções de denúncia.</string>
+</resources>
