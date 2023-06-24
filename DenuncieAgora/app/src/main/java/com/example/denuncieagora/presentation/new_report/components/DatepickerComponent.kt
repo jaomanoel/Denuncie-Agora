@@ -97,9 +97,8 @@ fun DatePickerComponent(
 
                 )
                 Icon(
-                    //Todo: ContentDescription
                     imageVector = icon,
-                    contentDescription = null,
+                    contentDescription = stringResource(R.string.accessibility_date),
                     tint = Color.Gray
                 )
             }
