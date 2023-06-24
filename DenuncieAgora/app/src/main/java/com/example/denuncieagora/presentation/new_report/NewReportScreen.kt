@@ -6,7 +6,9 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -64,7 +66,7 @@ fun NewReportScreen(
                             }) {
                                 Icon(
                                     imageVector = Icons.Filled.ArrowBack,
-                                    contentDescription = null,
+                                    contentDescription = stringResource(R.string.accessibility_back_home),
                                     tint = MaterialTheme.colors.primary
                                 )
                             }
@@ -95,7 +97,7 @@ fun NewReportScreen(
                             is NewReportViewModel.ValidationEvent.Success -> {
                                 Toast.makeText(
                                     context,
-                                    "Denuncia Realizada com sucesso",
+                                    R.string.success_new_report,
                                     Toast.LENGTH_LONG
                                 ).show()
                             }
@@ -112,6 +114,10 @@ fun NewReportScreen(
                         .padding(vertical = 20.dp, horizontal = 18.dp),
                     verticalArrangement = Arrangement.Top
                 ) {
+                    Text(
+                        text = stringResource(R.string.label_date_report),
+                        style = MaterialTheme.typography.h2
+                    )
                     DatePickerComponent(
                         label = state.date,
                         error = state.dateError,
@@ -120,6 +126,10 @@ fun NewReportScreen(
                         }
                     )
 
+                    Text(
+                        text = stringResource(R.string.label_about_report),
+                        style = MaterialTheme.typography.h2
+                    )
                     DropdownComponent(
                         error = state.aboutError,
                         onValueChange = { selectedType ->
@@ -127,10 +137,13 @@ fun NewReportScreen(
                         }
                     )
 
-                    // Todo: Add string.xml
+                    Text(
+                        text = stringResource(R.string.label_state_report),
+                        style = MaterialTheme.typography.h2
+                    )
                     StateSelectionComponent(
                         values = state.states ?: emptyList(),
-                        label = "Selecione um estado",
+                        label = stringResource(R.string.placeholder_state_report),
                         error = state.stateError,
                         onValueChange = {
                             viewModel.onEvent(NewReportFormEvent.StateChanged(it.nome))
@@ -138,16 +151,23 @@ fun NewReportScreen(
                         }
                     )
 
-                    // Todo: Add string.xml
+                    Text(
+                        text = stringResource(R.string.label_city_report),
+                        style = MaterialTheme.typography.h2
+                    )
                     CitySelectionComponent(
                         values = state.cities ?: emptyList(),
-                        label = "Selecione uma cidade",
+                        label = stringResource(R.string.placeholder_city_report),
                         error = state.cityError,
                         onValueChange = {
                             viewModel.onEvent(NewReportFormEvent.CityChanged(it.nome))
                         }
                     )
 
+                    Text(
+                        text = stringResource(R.string.label_description_report),
+                        style = MaterialTheme.typography.h2
+                    )
                     InputTextComponent(
                         label = state.description,
                         error = state.descriptionError,
@@ -156,6 +176,8 @@ fun NewReportScreen(
                             viewModel.onEvent(NewReportFormEvent.DescriptionChanged(it))
                         }
                     )
+
+                    Spacer(modifier = Modifier.height(60.dp))
                 }
             }
         }
