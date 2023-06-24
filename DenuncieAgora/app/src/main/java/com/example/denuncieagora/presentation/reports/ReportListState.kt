@@ -6,5 +6,5 @@ data class ReportListState(
     val isLoading: Boolean = false,
     val reports: List<Report> = emptyList(),
     val error: String = "",
-    val selectedReport: String = ""
+    val selectedReport: String = "Todos"
 )
