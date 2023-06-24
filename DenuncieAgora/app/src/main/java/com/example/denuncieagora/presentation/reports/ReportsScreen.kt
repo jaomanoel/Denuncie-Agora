@@ -24,14 +24,11 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.sharp.Info
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -77,9 +74,8 @@ fun ReportsScreen(
                         backgroundColor = MaterialTheme.colors.primary
                     ) {
                         Icon(
-                            //Todo: ContentDescription
                             imageVector = Icons.Filled.Add,
-                            contentDescription = null,
+                            contentDescription = stringResource(R.string.add_report),
                             tint = MaterialTheme.colors.background
                         )
                     }
@@ -99,7 +95,7 @@ fun ReportsScreen(
 
                 Column(Modifier.fillMaxSize()) {
                     Text(
-                        text = "Filtro Personalizado",
+                        text = stringResource(R.string.custom_filter),
                         fontWeight = FontWeight.W800,
                         modifier = Modifier.padding(start = 20.dp, top = 12.dp)
                     )
@@ -150,14 +146,13 @@ fun ReportsScreen(
                                     ) {
                                         Spacer(modifier = Modifier.height(40.dp))
 
-                                        // TODO: add contentDescription
                                         Icon(
                                             imageVector = Icons.Outlined.Info,
-                                            contentDescription = null,
+                                            contentDescription = stringResource(R.string.warning_reports_is_empty),
                                             modifier = Modifier.size(100.dp)
                                         )
                                         Text(
-                                            text = "Nenhuma denúncia registrada no momento",
+                                            text = stringResource(R.string.warning_reports_is_empty),
                                             fontWeight = FontWeight.W800
                                         )
                                     }
