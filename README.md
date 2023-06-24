@@ -50,7 +50,7 @@ cd ./backend
 ./mvnw spring-boot:run
 ```
 ## Android Nativo
-Pré-requisitos: SDK do Android 33
+Pré-requisitos: SDK do Android 13.0 (Tiramisu)
 
 ```bash
 # Clonar o repositório
